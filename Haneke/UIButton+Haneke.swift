@@ -107,7 +107,7 @@ public extension UIButton {
         if let succeed = succeed {
             succeed(image)
         } else if animated {
-            UIView.transitionWithView(self, duration: immediately ? 0.05 : HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
+            UIView.transitionWithView(self, duration: immediately ? HanekeGlobals.UIKit.SetImageAnimationShortDuration : HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
                 self.setImage(image, forState: state)
                 }, completion: nil)
         } else {
@@ -204,20 +204,20 @@ public extension UIButton {
                 if let strongSelf = self {
                     if strongSelf.hnk_shouldCancelBackgroundImageForKey(fetcher.key) { return }
                     
-                    strongSelf.hnk_setBackgroundImage(image, state: state, animated: !immediately, success: succeed)
+                    strongSelf.hnk_setBackgroundImage(image, state: state, animated: animated, immediately: immediately, success: succeed)
                 }
         }
         animated = true
         return fetch.hasSucceeded
     }
     
-    func hnk_setBackgroundImage(image: UIImage, state: UIControlState, animated: Bool, success succeed: ((UIImage) -> ())?) {
+    func hnk_setBackgroundImage(image: UIImage, state: UIControlState, animated: Bool, immediately: Bool, success succeed: ((UIImage) -> ())?) {
         self.hnk_backgroundImageFetcher = nil
         
         if let succeed = succeed {
             succeed(image)
         } else if animated {
-            UIView.transitionWithView(self, duration: HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
+            UIView.transitionWithView(self, duration: immediately ? HanekeGlobals.UIKit.SetImageAnimationShortDuration :HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
                 self.setBackgroundImage(image, forState: state)
                 }, completion: nil)
         } else {

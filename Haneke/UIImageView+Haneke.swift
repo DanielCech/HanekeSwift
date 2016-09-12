@@ -121,7 +121,7 @@ public extension UIImageView {
         if let succeed = succeed {
             succeed(image)
         } else if animated {
-            UIView.transitionWithView(self, duration: immediately ? 0.05 : HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
+            UIView.transitionWithView(self, duration: immediately ? HanekeGlobals.UIKit.SetImageAnimationShortDuration : HanekeGlobals.UIKit.SetImageAnimationDuration, options: .TransitionCrossDissolve, animations: {
                 self.image = image
             }, completion: nil)
         } else {
